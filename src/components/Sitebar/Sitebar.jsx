@@ -8,14 +8,14 @@ import { getChecked, getTickets } from "../../redux/selectors";
 
 const actionCreators = {
   addChecked: actions.addChecked,
-  addTicket: actions.addTicket,
   removeTickets: actions.removeTickets,
+  addSearchId: actions.addSearchId,
 };
 
 const WrapperForm = styled.div`
   background: #fff;
   padding-top: 8px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   width: 230px;
@@ -70,6 +70,7 @@ const Checkbox = styled.span`
 const Span = styled.span`
   font-weight: normal;
   font-size: 13px;
+  line-height: 20px;
 `;
 
 const mapStateToProps = (state) => {
@@ -81,22 +82,26 @@ const mapStateToProps = (state) => {
 };
 
 const Sitebar = (props) => {
-  const { checked, addChecked, addTicket, removeTickets } = props;
-
+  const { checked, addChecked, removeTickets, addSearchId } = props;
+  useEffect(() => {
+    addSearchId();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const checkboxHandler = (id) => (e) => {
     e.stopPropagation();
     addChecked({ id });
-    addTicket();
-    if (id === "all" && checked[id]) {
-      removeTickets();
+    if (checked[id] === true) {
+      for (var key in checked) {
+        if (checked[key] === false || key === id) {
+          removeTickets();
+        }
+      }
+      return;
     }
+    addSearchId();
+
     return;
   };
-
-  useEffect(() => {
-    addTicket();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <WrapperForm>
@@ -158,7 +163,7 @@ const Sitebar = (props) => {
 Sitebar.propTypes = {
   checked: PropTypes.object.isRequired,
   addChecked: PropTypes.func.isRequired,
-  addTicket: PropTypes.func.isRequired,
+  addSearchId: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, actionCreators)(Sitebar);

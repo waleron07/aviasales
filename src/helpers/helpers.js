@@ -2,7 +2,7 @@ import axios from "axios";
 import { format, addMinutes, parseISO } from "date-fns";
 import { uniqueId } from "lodash";
 
-const baseUrl = "https://front-test.beta.aviasales.ru/";
+export const baseUrl = "https://front-test.beta.aviasales.ru/";
 
 export const getSearchId = async () => {
   const url = await new URL("search", baseUrl);
@@ -42,15 +42,10 @@ const filterTicket = (data) => {
   return "all";
 };
 
-export const getTickets = async () => {
-  const { searchId } = await getSearchId();
+export const getTickets = async (searchId) => {
   const url = new URL(`tickets?searchId=${searchId}`, baseUrl);
   const response = await axios.post(url);
   const { stop, tickets } = await response.data;
-
-  if (stop === false) {
-    getTickets();
-  }
 
   const newTickets = tickets.map((ticket) => {
     const {
@@ -62,7 +57,6 @@ export const getTickets = async () => {
     const newDataThere = sortTicket(there);
     const newDataBack = sortTicket(back);
     const duration = there.duration + back.duration;
-
     return {
       id: uniqueId(),
       price,

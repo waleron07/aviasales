@@ -109,11 +109,11 @@ const Tickets = (props) => {
       return;
     }
     const { price, id, img, back, there } = ticket;
-
+    const newPrice = price.toLocaleString("ru");
     return (
       <WrapperTickets key={id}>
         <HeaderTicket>
-          <PraicTicket>{price} P</PraicTicket>
+          <PraicTicket>{newPrice} P</PraicTicket>
           <LogoTicket src={img}></LogoTicket>
         </HeaderTicket>
         <ThereTicket>
@@ -127,13 +127,13 @@ const Tickets = (props) => {
             </span>
           </ThereTicketHeader>
           <ThereTicketValue>
-            <span className="thereTicketValue__way way__left">
+            <span className="thereTicketValue__text way__left">
               {there.arrival}-{there.departure}
             </span>
-            <span className="thereTicketValue__time time__center">
+            <span className="thereTicketValue__text time__center">
               {there.tripTime}
             </span>
-            <span className="thereTicketValue__transfer transfer__right">
+            <span className="thereTicketValue__text transfer__right">
               {there.stops.map((city) => city).join(" ")}
             </span>
           </ThereTicketValue>
@@ -144,18 +144,18 @@ const Tickets = (props) => {
               {back.origin}-{back.destination}
             </span>
             <span className="backTicketHeader__time time__center">В пути</span>
-            <span className="backTicketHeader__transfer">
+            <span className="backTicketHeader__transfer transfer__right">
               {formatsTransfer(back.stops)}
             </span>
           </BackTicketHeader>
           <BackTicketValue>
-            <span className="backTicketValue__way way__left">
+            <span className="backTicketValue__text way__left">
               {back.arrival}-{back.departure}
             </span>
-            <span className="backTicketValue__time time__center">
+            <span className="backTicketValue__text time__center">
               {back.tripTime}
             </span>
-            <span className="backTicketValue__transfer transfer__right">
+            <span className="backTicketValue__text transfer__right">
               {back.stops.map((city) => city).join(" ")}
             </span>
           </BackTicketValue>
@@ -166,7 +166,7 @@ const Tickets = (props) => {
 };
 
 Tickets.propTypes = {
-  tickets: PropTypes.object,
+  tickets: PropTypes.array,
 };
 
 export default connect(mapStateToProps)(Tickets);

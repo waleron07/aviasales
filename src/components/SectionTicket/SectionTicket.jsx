@@ -43,11 +43,12 @@ const Btn = styled.button`
   line-height: 20px;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  color: #4a4a4a;
   cursor: pointer;
   :focus {
     outline: none;
   }
+  ${(props) =>
+    props.active === "active" ? `color: #fff;` : `color: #4a4a4a;`};
   ${(props) =>
     props.active === "active" ? `background: #2196F3;` : `background: white;`};
 `;
@@ -55,7 +56,6 @@ const Btn = styled.button`
 const SectionTicket = (props) => {
   const { sort, changedSort, tickets } = props;
   const clickBtn = (name) => {
-    console.log("click", name);
     changedSort(name);
     return;
   };

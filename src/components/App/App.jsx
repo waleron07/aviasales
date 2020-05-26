@@ -17,7 +17,7 @@ const Main = styled.main`
 `;
 
 const AsideRight = styled.aside`
-  width: 40%;
+  min-width: 500px;
 `;
 
 const AsideLeft = styled.aside`

@@ -41,7 +41,7 @@ const checked = handleActions(
 const tickets = handleActions(
   {
     [actions.addTicketsSuccess](state, { payload: { newTickets } }) {
-      return newTickets;
+      return [...state, ...newTickets];
     },
     [actions.removeTickets](state) {
       return [];
