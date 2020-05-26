@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a33c55ba6138a2eaf590e7dcc51c12a5",
+    "revision": "17c5a479e456c43ab8b95fa8bce80018",
     "url": "/aviasales/index.html"
   },
   {
-    "revision": "79462b2c3c6a289d03bd",
+    "revision": "534a0cdde863cf74f945",
     "url": "/aviasales/static/css/2.5ea632f0.chunk.css"
   },
   {
-    "revision": "f2e70361b095305658c4",
-    "url": "/aviasales/static/css/main.37183e0c.chunk.css"
+    "revision": "3df690fbb14fa59da1a4",
+    "url": "/aviasales/static/css/main.12a07e2a.chunk.css"
   },
   {
-    "revision": "79462b2c3c6a289d03bd",
-    "url": "/aviasales/static/js/2.a789cc56.chunk.js"
+    "revision": "534a0cdde863cf74f945",
+    "url": "/aviasales/static/js/2.9d02654b.chunk.js"
   },
   {
     "revision": "64bea2e190f27355a76963b8cb94bb7b",
-    "url": "/aviasales/static/js/2.a789cc56.chunk.js.LICENSE.txt"
+    "url": "/aviasales/static/js/2.9d02654b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "f2e70361b095305658c4",
-    "url": "/aviasales/static/js/main.337e621d.chunk.js"
+    "revision": "3df690fbb14fa59da1a4",
+    "url": "/aviasales/static/js/main.81d55a6f.chunk.js"
   },
   {
     "revision": "1a0c61300477ee3f0b7f",
