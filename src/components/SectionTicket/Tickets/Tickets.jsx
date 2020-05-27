@@ -83,7 +83,6 @@ const BackTicketValue = styled.div`
 const mapStateToProps = (state) => {
   const props = {
     tickets: getFilterTickets(state),
-    tick: getFilterTickets(state),
     checked: getChecked(state),
     sort: getSort(state),
   };

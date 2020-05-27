@@ -19,9 +19,10 @@ export const addSearchId = () => async (dispatch) => {
   dispatch(searchIdRequest());
   try {
     const { searchId } = await getSearchId();
+    dispatch(removeTickets());
     dispatch(addTicket(searchId));
   } catch (e) {
-    console.log("что-то пошло не так, повторим запрос. Подождите");
+    console.log("что-то пошло не так, повторим запрос. Подождите, searchID", e);
     dispatch(addSearchId);
     throw e;
   }

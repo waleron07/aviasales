@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import * as actions from "../../redux/actions";
-import { getSort, getTickets } from "../../redux/selectors";
+import { getSort, getFilterTickets } from "../../redux/selectors";
 import Tickets from "./Tickets";
 import NoTickets from "./NoTickets";
 
@@ -14,7 +14,7 @@ const actionCreators = {
 const mapStateToProps = (state) => {
   const props = {
     sort: getSort(state),
-    tickets: getTickets(state),
+    tickets: getFilterTickets(state),
   };
   return props;
 };

@@ -82,25 +82,15 @@ const mapStateToProps = (state) => {
 };
 
 const Sitebar = (props) => {
-  const { checked, addChecked, removeTickets, addSearchId } = props;
+  const { checked, addChecked, addSearchId } = props;
   useEffect(() => {
     addSearchId();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   const checkboxHandler = (id) => (e) => {
     e.stopPropagation();
     addChecked({ id });
-    if (checked[id] === true) {
-      for (var key in checked) {
-        if (checked[key] === false || key === id) {
-          removeTickets();
-        }
-      }
-      return;
-    }
-    addSearchId();
-
-    return;
   };
 
   return (
