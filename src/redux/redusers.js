@@ -12,12 +12,12 @@ const initChecked = {
 
 const checked = handleActions(
   {
-    [actions.addChecked](state, { payload: { id } }) {
-      if (id === "all" && !state[id]) {
+    [actions.addChecked](state, { payload: { name } }) {
+      if (name === "all" && !state[name]) {
         return initChecked;
       }
 
-      if (id === "all" && state[id]) {
+      if (name === "all" && state[name]) {
         return {
           all: false,
           zero: false,
@@ -27,10 +27,10 @@ const checked = handleActions(
         };
       }
 
-      const value = !state[id];
+      const value = !state[name];
       return {
         ...state,
-        [id]: value,
+        [name]: value,
         all: false,
       };
     },
@@ -50,15 +50,6 @@ const tickets = handleActions(
   []
 );
 
-const stop = handleActions(
-  {
-    [actions.addTicketsSuccess](state, { payload: { stop } }) {
-      return stop;
-    },
-  },
-  false
-);
-
 const sort = handleActions(
   {
     [actions.changedSort](state, { payload }) {
@@ -72,5 +63,4 @@ export default combineReducers({
   checked,
   sort,
   tickets,
-  stop,
 });

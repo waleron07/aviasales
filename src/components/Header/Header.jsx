@@ -2,6 +2,14 @@ import React from "react";
 import img from "./logo/Logo.png";
 import styled from "styled-components";
 
+const Header = () => {
+  return (
+    <WrapperHeader>
+      <LogoDiv />
+    </WrapperHeader>
+  );
+};
+
 const WrapperHeader = styled.div`
   display: flex;
   flex-direction: column;
@@ -17,13 +25,5 @@ const LogoDiv = styled.div`
   background-position: center;
   margin: 15px auto;
 `;
-
-const Header = () => {
-  return (
-    <WrapperHeader>
-      <LogoDiv />
-    </WrapperHeader>
-  );
-};
 
 export default Header;

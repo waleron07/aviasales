@@ -10,7 +10,7 @@ export const getSearchId = async () => {
   return response.data;
 };
 
-const sortTicket = (data) => {
+const normalaizTicket = (data) => {
   const arrivalTime = parseISO(data.date);
   const departureTime = addMinutes(arrivalTime, data.duration);
   const departure = format(arrivalTime, "k:mm");
@@ -26,7 +26,7 @@ const sortTicket = (data) => {
   };
 };
 
-const filterTicket = (data) => {
+const normalaizTransfer = (data) => {
   if (data === 0) {
     return "zero";
   }
@@ -54,13 +54,13 @@ export const getTickets = async (searchId) => {
       segments: [there, back],
     } = ticket;
 
-    const newDataThere = sortTicket(there);
-    const newDataBack = sortTicket(back);
+    const newDataThere = normalaizTicket(there);
+    const newDataBack = normalaizTicket(back);
     const duration = there.duration + back.duration;
     return {
       id: uniqueId(),
       price,
-      transfer: filterTicket(there.stops.length + back.stops.length),
+      transfer: normalaizTransfer(there.stops.length + back.stops.length),
       img: `//pics.avs.io/99/36/${carrier}.png`,
       duration,
       there: {

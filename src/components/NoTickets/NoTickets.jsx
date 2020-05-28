@@ -1,7 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-const WrapperDiv = styled.div`
+const NoTickets = () => {
+  return (
+    <WrapperNoTickets>
+      <HeaderTickets>Билетов не найдено</HeaderTickets>
+    </WrapperNoTickets>
+  );
+};
+
+const WrapperNoTickets = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,13 +28,5 @@ const HeaderTickets = styled.div`
   line-height: 24px;
   color: #2196f3;
 `;
-
-const NoTickets = () => {
-  return (
-    <WrapperDiv>
-      <HeaderTickets>Билетов не найдено</HeaderTickets>
-    </WrapperDiv>
-  );
-};
 
 export default NoTickets;

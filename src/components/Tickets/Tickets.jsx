@@ -3,86 +3,12 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import {
-  getFilterTickets,
-  getChecked,
-  getSort,
-} from "../../../redux/selectors";
+import { getSortTickets, getChecked, getSort } from "../../redux/selectors";
 import "./Tickets.scss";
-
-const WrapperTickets = styled.div`
-  display: flex;
-  flex-direction: column;
-  background: #ffffff;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  margin: 20px 0 20px 0;
-  padding: 20px;
-`;
-
-const HeaderTicket = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-`;
-
-const PraicTicket = styled.h3`
-  margin: 0;
-  font-family: Open Sans;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 24px;
-  color: #2196f3;
-`;
-
-const LogoTicket = styled.img``;
-
-const ThereTicket = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const ThereTicketHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-transform: uppercase;
-  color: #a0b0b9;
-  line-height: 18px;
-`;
-
-const ThereTicketValue = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const BackTicket = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const BackTicketHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-transform: uppercase;
-  color: #a0b0b9;
-  line-height: 18px;
-  margin-top: 10px;
-`;
-
-const BackTicketValue = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
 
 const mapStateToProps = (state) => {
   const props = {
-    tickets: getFilterTickets(state),
+    tickets: getSortTickets(state),
     checked: getChecked(state),
     sort: getSort(state),
   };
@@ -115,8 +41,8 @@ const Tickets = (props) => {
           <PraicTicket>{newPrice} P</PraicTicket>
           <LogoTicket src={img}></LogoTicket>
         </HeaderTicket>
-        <ThereTicket>
-          <ThereTicketHeader>
+        <Ticket>
+          <TicketTitle>
             <span className="thereTicketHeader__way way__left">
               {there.origin}-{there.destination}
             </span>
@@ -124,8 +50,8 @@ const Tickets = (props) => {
             <span className="thereTicketHeader__transfer transfer__right">
               {formatsTransfer(there.stops)}
             </span>
-          </ThereTicketHeader>
-          <ThereTicketValue>
+          </TicketTitle>
+          <TicketValue>
             <span className="thereTicketValue__text way__left">
               {there.arrival}-{there.departure}
             </span>
@@ -135,10 +61,10 @@ const Tickets = (props) => {
             <span className="thereTicketValue__text transfer__right">
               {there.stops.map((city) => city).join(" ")}
             </span>
-          </ThereTicketValue>
-        </ThereTicket>
-        <BackTicket>
-          <BackTicketHeader>
+          </TicketValue>
+        </Ticket>
+        <Ticket>
+          <TicketTitle>
             <span className="backTicketHeader__way way__left">
               {back.origin}-{back.destination}
             </span>
@@ -146,8 +72,8 @@ const Tickets = (props) => {
             <span className="backTicketHeader__transfer transfer__right">
               {formatsTransfer(back.stops)}
             </span>
-          </BackTicketHeader>
-          <BackTicketValue>
+          </TicketTitle>
+          <TicketValue>
             <span className="backTicketValue__text way__left">
               {back.arrival}-{back.departure}
             </span>
@@ -157,8 +83,8 @@ const Tickets = (props) => {
             <span className="backTicketValue__text transfer__right">
               {back.stops.map((city) => city).join(" ")}
             </span>
-          </BackTicketValue>
-        </BackTicket>
+          </TicketValue>
+        </Ticket>
       </WrapperTickets>
     );
   });
@@ -167,5 +93,54 @@ const Tickets = (props) => {
 Tickets.propTypes = {
   tickets: PropTypes.array,
 };
+
+const WrapperTickets = styled.div`
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin: 20px 0 20px 0;
+  padding: 20px;
+`;
+
+const HeaderTicket = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
+const PraicTicket = styled.h3`
+  margin: 0;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 24px;
+  color: #2196f3;
+`;
+
+const LogoTicket = styled.img``;
+
+const Ticket = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const TicketTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+  color: #a0b0b9;
+  line-height: 18px;
+`;
+
+const TicketValue = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 export default connect(mapStateToProps)(Tickets);

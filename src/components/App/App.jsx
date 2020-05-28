@@ -11,35 +11,48 @@ import redusers from "../../redux/redusers";
 
 const store = createStore(redusers, compose(applyMiddleware(thunk)));
 
-const Main = styled.main`
-  display: flex;
-  justify-content: center;
-`;
-
-const AsideRight = styled.aside`
-  min-width: 500px;
-`;
-
-const AsideLeft = styled.aside`
-  margin-right: 20px;
-`;
-
 const App = () => {
   return (
     <Provider store={store}>
       <div className="container">
         <Header />
         <Main>
-          <AsideLeft>
+          <FiltersBlock>
             <Sitebar />
-          </AsideLeft>
-          <AsideRight>
+          </FiltersBlock>
+          <TicketsBlock>
             <SectionTicket />
-          </AsideRight>
+          </TicketsBlock>
         </Main>
       </div>
     </Provider>
   );
 };
+
+const Main = styled.main`
+  display: flex;
+  justify-content: center;
+  @media (max-width: 900px) {
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+const TicketsBlock = styled.aside`
+  min-width: 500px;
+  @media (max-width: 900px) {
+    align-self: center;
+    margin: 10px;
+    min-width: 0;
+  }
+`;
+
+const FiltersBlock = styled.aside`
+  margin-right: 20px;
+  @media (max-width: 900px) {
+    align-self: center;
+    margin: 10px;
+  }
+`;
 
 export default App;

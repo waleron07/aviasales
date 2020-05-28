@@ -1,5 +1,5 @@
 import { createAction } from "redux-actions";
-import { getTickets, getSearchId } from "../helpers/helpers";
+import { getTickets, getSearchId } from "../api";
 
 export const addTicketsSuccess = createAction("DOWLOAD_TICKETS_SUCCESS");
 export const addTicketsRequest = createAction("DOWLOAD_TICKETS_REQUEST");
@@ -15,15 +15,14 @@ export const changedSort = createAction("CHANGE_ADD");
 export const filterTickets = createAction("TICKETS_FILTER");
 export const removeTickets = createAction("TICKETS_REMOVE");
 
-export const addSearchId = () => async (dispatch) => {
+export const getId = () => async (dispatch) => {
   dispatch(searchIdRequest());
   try {
     const { searchId } = await getSearchId();
-    dispatch(removeTickets());
     dispatch(addTicket(searchId));
   } catch (e) {
     console.log("что-то пошло не так, повторим запрос. Подождите, searchID", e);
-    dispatch(addSearchId);
+    dispatch(getId);
     throw e;
   }
 };
@@ -43,11 +42,6 @@ export const addTicket = (searchId) => async (dispatch) => {
       ? console.log("Запрос выполнен успешно")
       : dispatch(addTicket(searchId));
   } catch (e) {
-    dispatch(
-      addTicketsFailure({
-        stop: false,
-      })
-    );
     dispatch(addTicket(searchId));
     console.log("что-то пошло не так, повторим запрос. Подождите");
     throw e;

@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import * as actions from "../../redux/actions";
-import { getSort, getFilterTickets } from "../../redux/selectors";
-import Tickets from "./Tickets";
-import NoTickets from "./NoTickets";
+import { getSort, getSortTickets } from "../../redux/selectors";
+import Tickets from "../Tickets";
+import NoTickets from "../NoTickets";
 
 const actionCreators = {
   changedSort: actions.changedSort,
@@ -14,9 +14,41 @@ const actionCreators = {
 const mapStateToProps = (state) => {
   const props = {
     sort: getSort(state),
-    tickets: getFilterTickets(state),
+    tickets: getSortTickets(state),
   };
   return props;
+};
+
+const SectionTicket = (props) => {
+  const { sort, changedSort, tickets } = props;
+  const handleClickBtn = (name) => {
+    changedSort(name);
+    return;
+  };
+
+  return (
+    <WrapperDiv>
+      <BtnContainer>
+        <Btn
+          name="price"
+          active={sort === "price" ? "active" : null}
+          onClick={() => handleClickBtn("price")}
+        >
+          самый дешевый
+        </Btn>
+        <Btn
+          name="speed"
+          active={sort === "duration" ? "active" : null}
+          onClick={() => handleClickBtn("duration")}
+        >
+          самый быстрый
+        </Btn>
+      </BtnContainer>
+      <div className="wrapperTickets">
+        {tickets.length === 0 ? <NoTickets /> : <Tickets></Tickets>}
+      </div>
+    </WrapperDiv>
+  );
 };
 
 const WrapperDiv = styled.div`
@@ -36,7 +68,6 @@ const Btn = styled.button`
   width: 50%;
 
   border: 1px solid #dfe5ec;
-  border-radius: 5px;
   font-family: Open Sans;
   font-weight: 600;
   font-size: 12px;
@@ -52,38 +83,6 @@ const Btn = styled.button`
   ${(props) =>
     props.active === "active" ? `background: #2196F3;` : `background: white;`};
 `;
-
-const SectionTicket = (props) => {
-  const { sort, changedSort, tickets } = props;
-  const clickBtn = (name) => {
-    changedSort(name);
-    return;
-  };
-
-  return (
-    <WrapperDiv>
-      <BtnContainer>
-        <Btn
-          name="price"
-          active={sort === "price" ? "active" : null}
-          onClick={() => clickBtn("price")}
-        >
-          самый дешевый
-        </Btn>
-        <Btn
-          name="speed"
-          active={sort === "duration" ? "active" : null}
-          onClick={() => clickBtn("duration")}
-        >
-          самый быстрый
-        </Btn>
-      </BtnContainer>
-      <div className="wrapperTickets">
-        {tickets.length === 0 ? <NoTickets /> : <Tickets></Tickets>}
-      </div>
-    </WrapperDiv>
-  );
-};
 
 SectionTicket.propTypes = {
   sort: PropTypes.string.isRequired,

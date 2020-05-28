@@ -4,8 +4,26 @@ export const getChecked = (state) => state.checked;
 export const getSort = (state) => state.sort;
 export const getTickets = (state) => state.tickets;
 
+export const getFilterTickets = createSelector(
+  [getTickets, getChecked],
+  (tickets, checked) =>
+    checked.all ? tickets : filterTickets(tickets, checked)
+);
+
+const filterTickets = (tickets, checked) => {
+  var newTickets = [];
+  for (var key in checked) {
+    if (checked[key]) {
+      // eslint-disable-next-line no-loop-func
+      const filterTicket = tickets.filter((ticket) => ticket.transfer === key);
+      newTickets = newTickets.concat(filterTicket);
+    }
+  }
+  return newTickets;
+};
+
 export const getSortTickets = createSelector(
-  [getTickets, getSort],
+  [getFilterTickets, getSort],
   (tickets, sort) =>
     [...tickets].sort(function (a, b) {
       if (a[sort] > b[sort]) {
@@ -17,20 +35,3 @@ export const getSortTickets = createSelector(
       return 0;
     })
 );
-
-export const getFilterTickets = createSelector(
-  [getSortTickets, getChecked],
-  (tickets, checked) =>
-    checked.all ? tickets : filterTickets(tickets, checked)
-);
-
-const filterTickets = (tickets, checked) => {
-  var newTickets = [];
-  for (var key in checked) {
-    if (checked[key] === true) {
-      // eslint-disable-next-line no-loop-func
-      newTickets = tickets.filter((ticket) => ticket.transfer === key);
-    }
-  }
-  return newTickets;
-};
