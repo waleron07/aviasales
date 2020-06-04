@@ -26,20 +26,11 @@ const normalaizTicket = (data) => {
   };
 };
 
-const normalaizTransfer = (data) => {
-  if (data === 0) {
-    return "zero";
-  }
-  if (data === 1) {
-    return "one";
-  }
-  if (data === 2) {
-    return "two";
-  }
-  if (data === 3) {
-    return "three";
-  }
-  return "all";
+const mapping = {
+  0: "zero",
+  1: "one",
+  2: "two",
+  3: "three",
 };
 
 export const getTickets = async (searchId) => {
@@ -57,10 +48,11 @@ export const getTickets = async (searchId) => {
     const newDataThere = normalaizTicket(there);
     const newDataBack = normalaizTicket(back);
     const duration = there.duration + back.duration;
+    const transferLength = there.stops.length + back.stops.length;
     return {
       id: uniqueId(),
       price,
-      transfer: normalaizTransfer(there.stops.length + back.stops.length),
+      transfer: transferLength > 3 ? "all" : mapping[transferLength],
       img: `//pics.avs.io/99/36/${carrier}.png`,
       duration,
       there: {
